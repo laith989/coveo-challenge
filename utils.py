@@ -2,10 +2,11 @@ from tabulate import tabulate
 from fnmatch import fnmatch
 from collections import defaultdict
 
-
+# Find the bucket name match
 def matches_name(name, pattern):
     return fnmatch(name, pattern)
 
+# Return the bucket size format
 def format_size(bytes_value, unit='mb'):
     units = {
         'bytes': 1,
@@ -15,15 +16,11 @@ def format_size(bytes_value, unit='mb'):
     }
     return round(bytes_value / units.get(unit.lower(), 1024 ** 2), 3)
 
+# print table
 def print_table(data):
     print(tabulate(data, headers="keys"))
 
-
-def filter_objects_by_storage_class(objects, target_class):
-    return [obj for obj in objects if obj.get("StorageClass") == target_class]
-
-
-
+#Calculate cost base on storage class
 def calculate_cost(storage_class, size_bytes):
     price_per_gb = {
         "STANDARD": 0.023,
@@ -35,8 +32,7 @@ def calculate_cost(storage_class, size_bytes):
     return (size_bytes / 1024 / 1024 / 1024) * price_per_gb.get(storage_class.upper(), 0.023)
 
 
-
-
+#
 def group_by_encryption(buckets):
     grouped = defaultdict(list)
     for bucket in buckets:

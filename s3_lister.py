@@ -4,7 +4,7 @@ import boto3
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dateutil.tz import tzutc
 from collections import defaultdict
-from utils import  print_table, calculate_cost, filter_objects_by_storage_class, format_size, matches_name, group_by_encryption
+from utils import  print_table, calculate_cost, format_size, matches_name, group_by_encryption
 
 
 s3 = boto3.resource("s3")
